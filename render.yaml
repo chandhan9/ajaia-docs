@@ -1,0 +1,19 @@
+# One-click deploy on Render's free tier: New > Blueprint > pick this repo.
+services:
+  - type: web
+    name: ajaia-docs
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    # One worker keeps SQLite writes in a single process; threads handle concurrency.
+    startCommand: gunicorn wsgi:app --workers 1 --threads 4 --bind 0.0.0.0:$PORT
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: SECRET_KEY
+        generateValue: true
+      - key: SESSION_COOKIE_SECURE
+        value: "1"
+      - key: DATABASE_PATH
+        value: data/ajaia_docs.db

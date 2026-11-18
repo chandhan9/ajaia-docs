@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ajaia Docs</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div id="app" aria-live="polite"></div>
+
+  <!-- Toast for transient errors / confirmations -->
+  <div id="toast" role="status" hidden></div>
+
+  <!-- Share dialog (owner only) -->
+  <dialog id="share-dialog" aria-labelledby="share-title">
+    <form id="share-form" method="dialog" class="dialog-body">
+      <h2 id="share-title">Share document</h2>
+      <p class="muted small">People you add can open this document from their <em>Shared with me</em> list.</p>
+      <div class="share-row">
+        <input id="share-email" type="email" list="user-directory" placeholder="name@ajaia.test" required aria-label="Email to share with">
+        <datalist id="user-directory"></datalist>
+        <select id="share-role" aria-label="Access level">
+          <option value="editor">Can edit</option>
+          <option value="viewer">Can view</option>
+        </select>
+        <button type="submit" class="btn primary" id="share-submit">Share</button>
+      </div>
+      <p id="share-error" class="error small" hidden></p>
+      <h3 class="small muted">People with access</h3>
+      <ul id="share-list" class="share-list"></ul>
+      <div class="dialog-actions">
+        <button type="button" class="btn" id="share-close">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
